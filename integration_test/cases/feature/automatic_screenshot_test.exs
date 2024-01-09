@@ -24,7 +24,7 @@ defmodule Wallaby.Integration.Feature.AutomaticScreenshotTest do
         end
       end
 
-      ExUnit.Server.modules_loaded(false)
+      exunit_server_modules_loaded()
       configure_and_reload_on_exit(colors: [enabled: false])
 
       output =
@@ -52,7 +52,7 @@ defmodule Wallaby.Integration.Feature.AutomaticScreenshotTest do
         end
       end
 
-      ExUnit.Server.modules_loaded(false)
+      exunit_server_modules_loaded()
       configure_and_reload_on_exit(colors: [enabled: false])
 
       output =
@@ -76,5 +76,18 @@ defmodule Wallaby.Integration.Feature.AutomaticScreenshotTest do
     ~r{- file:///}
     |> Regex.scan(output)
     |> length()
+  end
+
+  defp exunit_server_modules_loaded do
+    cond do
+      function_exported?(ExUnit.Server, :modules_loaded, 1) ->
+        apply(ExUnit.Server, :modules_loaded, [false])
+
+      function_exported?(ExUnit.Server, :modules_loaded, 0) ->
+        apply(ExUnit.Server, :modules_loaded, [])
+
+      true ->
+        raise "ExUnit.Server:modules_loaded is not defined."
+    end
   end
 end

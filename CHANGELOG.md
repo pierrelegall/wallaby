@@ -3,10 +3,10 @@
 ## Main
 
 - upgrade dependencies
+- add Elixir 1.16 CI tests
+- add OTP 26 CI tests
+- fix tests with hashes
 - fix compile time warnings from Wallaby
-- remove PartitionSupervisor from Wallaby (use the built-in one from Elixir `1.14`)
-- set minimum Elixir version at `1.14`
-- set ASDF tool version to: Erlang `26.2.1` & Elixir `1.15.7-otp-26`
 
 ## v0.30.6
 
